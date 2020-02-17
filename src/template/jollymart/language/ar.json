@@ -1,0 +1,6 @@
+{
+	"SIMPLE": "简单的句子",
+	"HELLO": "你好, {name}. 欢迎来到 {where}!",
+	"TIP": "这是 <span style='color:red'>HTML</span>",
+	"TIP_VAR": "这是 <span style='color:red'>{message}</span>"
+}

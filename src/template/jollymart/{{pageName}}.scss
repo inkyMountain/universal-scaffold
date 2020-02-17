@@ -1,0 +1,48 @@
+@import '../../statics/style/common';
+:root {
+  --safeTop: env(safe-area-inset-top);
+  --safeRight: env(safe-area-inset-right);
+  --safeBottom: env(safe-area-inset-bottom);
+  --safeLeft: env(safe-area-inset-left);
+}
+
+.page-{{pageName}} {
+
+  .hidden {
+    display: none;
+  }
+
+  // reset styles
+  width: 100%;
+  height: 100%;
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    outline: none;
+    border: none;
+    background: none;
+  }
+  a:link,
+  a:visited,
+  a:hover,
+  a:active {
+    color: inherit;
+    text-decoration: none;
+  }
+  ol, ul {
+    list-style: none;
+  }
+  html, body {
+    height: 100%;
+  }
+  button {
+    -webkit-appearance: none;
+  }
+  .hidden {
+    display: none;
+  }
+}
