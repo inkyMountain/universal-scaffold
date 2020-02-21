@@ -9,21 +9,21 @@ import {transpileTemplate} from './app';
 program.version(
   packageJson.version,
   '-v, --version',
-  'Show program version'
+  '显示应用版本'
 );
 
 program
   .option(
     '-t --template [template]',
-    '模板来源'
+    '模板来源 string'
   )
   .option(
     '-a --appendTime [appendTime]',
-    '模板来源'
+    '是否自动附加时间后缀 boolean'
   )
   .option(
     '-o --output [output]',
-    '模板编译后输出的目录'
+    '模板编译后输出的目录 string'
   );
 
 program

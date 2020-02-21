@@ -1,7 +1,7 @@
 
 <template>
     <div>
-        {{ $t('text') }} {{pageName}}
+        {{pageName}}
     </div>
 </template>
 

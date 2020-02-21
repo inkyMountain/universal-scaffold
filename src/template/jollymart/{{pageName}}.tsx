@@ -20,6 +20,7 @@ function rShow(flag: boolean) {
 // 初始化App通信服务
 const jsBridge = new core.services.ClientBridgeService();
 
+// 函数防抖
 const debounce = (fn: any, timeout: number) => {
   let timer: NodeJS.Timeout | null;
   return (...params: any[]) => {
@@ -43,7 +44,7 @@ const {{pageName}}: React.FunctionComponent<IProps> = (props) => {
   // States
   const [search, setSearch] = useState<string>('');
   const [safeTop, setSafeTop] = useState(0);
-  const mapRef = useRef<HTMLDivElement>(null);
+  const elementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // 获取IPhone的刘海高度，详见scss中的:root选择器。

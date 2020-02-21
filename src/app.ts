@@ -1,6 +1,7 @@
 import Metalsmith from 'metalsmith';
 import Handlebars from 'handlebars';
 import path from 'path';
+import fs from 'fs';
 
 // eg. [pageName] -> [pageName]20200217
 function appendTime(pageName: string) {
@@ -22,13 +23,21 @@ const transpileTemplate = (pageName: string, config: Config) => {
   * */
   return new Promise((resolve, reject) => {
     const processedPageName = config.appendTime
-                              ? appendTime(pageName) : pageName;
+                              ? appendTime(pageName.trim())
+                              : pageName.trim();
 
     const outputPath = path.resolve(
       process.cwd(),
       config.output || '/src/views',
       processedPageName
     );
+
+    // 如果模板不存在？
+    // if (!isTemplateExists) {
+    //   console.log(222);
+    //   reject(`模板: ${config.template} 不存在`);
+    //   return;
+    // }
 
     Metalsmith(path.resolve(__dirname))
       .source(path.resolve(__dirname, 'template', config.template || ''))
@@ -41,26 +50,41 @@ const transpileTemplate = (pageName: string, config: Config) => {
             ...config.variables,
             pageName: processedPageName
           };
-          Object.keys(files).forEach((filename) => {
-            // 替换文件内容
-            try {
-              // 图片等二进制文件会导致Handlebars文本解析失败，所以需要捕获。
-              files[filename].contents = Handlebars.compile(
-                files[filename].contents.toString()
-              )(needReplace);
-            } catch (error) {
-              return;
-            }
-            // 替换文件名
-            if (filename.indexOf('{{') !== -1) {
-              const replacedFilename = Handlebars.compile(filename)(needReplace);
-              if (replacedFilename in files) {
-                throw new Error('pageName参数与template目录中文件名重合度过高。');
+
+          Object.keys(files)
+            .filter(filename => {
+              const skippedExtensions = [
+                'jpg',
+                'png',
+                'gif',
+                'svg'
+              ];
+              const shouldSkip = skippedExtensions.find(
+                (ext) => filename.endsWith(`.${ext}`)
+              );
+              return !shouldSkip;
+            })
+            .forEach((filename) => {
+              // 替换文件内容
+              try {
+                files[filename].contents = Handlebars.compile(
+                  files[filename].contents.toString()
+                )(needReplace);
+              } catch (error) {
+                console.log(error);
+                return;
               }
-              files[replacedFilename] = files[filename];
-              delete files[filename];
-            }
-          });
+
+              // 替换文件名
+              if (filename.indexOf('{{') !== -1) {
+                const replacedFilename = Handlebars.compile(filename)(needReplace);
+                if (replacedFilename in files) {
+                  throw new Error('pageName参数与template目录中文件名重合度过高。');
+                }
+                files[replacedFilename] = files[filename];
+                delete files[filename];
+              }
+            });
           done(null, files, metalsmith);
         })
       .build((error, files, metalsmith) => {
