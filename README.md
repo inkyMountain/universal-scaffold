@@ -9,27 +9,18 @@
 
 ## 初始化
 ```
-git clone http://git.jollycorp.com:8088/2652/jollymart-cli.git
-cd jollymart-cli
+git clone git@github.com:inkyMountain/universal-scaffold.git
+cd universal-scaffold
 npm run setup
 ```
 
 ## 使用例子
 在项目**`根目录`**下执行下面的命令。
 
-创建一个名为 nativeGmapSearch20190217 的Jollymart新页面
+创建一个名为 nativeGmapSearch20190217 的新页面
 ```
 jm create nativeGmapSearch
 ```
-
-创建一个名为 nativeGmapSearch20190217 的Jollymart新页面
-```
-jm create nativeGmapSearch
-```
-
-选项：
-
-以上所有命令中，`jm`可以被替换为 `jollymart` `jc` `jollychic` 中的任意一个。
 
 ## 如何定制属于自己的模板
 定制方法：
@@ -37,8 +28,7 @@ jm create nativeGmapSearch
 
 **程序运行过程**
 
-当你运行 `jm create [pageName] --template jollymart` 时
-程序会读取 `--template` 参数，加载 jollymart-cli/src/template/jollymart 目录下的模板文件，
+当你运行 `jm create [pageName] --template ` 时
+程序会读取 `--template` 参数，加载 src/template/ 目录下的模板文件，
 并将{{pageName}}以及在config.ts中的config.variables中定义的变量作替换操作，输出至
 `${config.output}/[pageName]`目录下。
-
