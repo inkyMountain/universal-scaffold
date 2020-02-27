@@ -12,5 +12,5 @@ export default {
   /**
    * 输出目录的相对路径，src/views代表: [项目根目录]/src/views。
    */
-  output: 'src/views'
+  output: 'src/views/jollychic'
 };

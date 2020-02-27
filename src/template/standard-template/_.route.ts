@@ -2,13 +2,10 @@ import * as React from 'react';
 import {RouteComponentProps} from 'react-router';
 import {core} from '../../core';
 
-'jollymart'
-
 const PAGE_NAME = '{{pageName}}';
 
 const initializeI18n = async () => {
   const i18nData = await import(/* webpackChunkName: "{{pageName}}" */ './language');
-  await core.services.initializeI18n(PAGE_NAME, i18nData.default);
 };
 
 const initialize = (routeContext: RouteComponentProps) => {
